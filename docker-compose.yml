@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13.4
+    ports:
+      - '5431:5432'
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_DB: carwler_development
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - carwler_network
+  adminer:
+    image: adminer:latest
+    depends_on:
+      - db
+    networks:
+      - carwler_network
+    ports:
+      - "8089:8080"
+volumes:
+  database:
+
+networks:
+  carwler_network:
+    driver: bridge

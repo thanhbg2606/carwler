@@ -37,6 +37,7 @@ gem "bootsnap", require: false
 
 gem "nokogiri", "~> 1.15.5"
 gem "open-uri"
+gem "selenium-webdriver", "~> 4.8.3"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

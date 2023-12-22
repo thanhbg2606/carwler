@@ -1,9 +1,9 @@
 module V1
   class CrawlController < ApplicationController
     def chapter
-      res = Crawler::NokogiriDriver::CrawlContent.new(params[:link], params[:template]).run
+      result = CrawlContent::CrawlDataService.call(params[:link], params[:template])
 
-      render json: { "data": res }, status: :ok
+      render json: { "data": result }, status: :ok
     end
   end
 end

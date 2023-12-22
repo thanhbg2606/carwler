@@ -5,13 +5,12 @@ module Crawler
     class CrawlContent
       require 'net/http'
 
-      attr_accessor :link, :response, :params, :result
+      attr_accessor :response, :params, :result
 
-      def initialize link, params
-        @link =  URI.parse(link)
+      def initialize response, params
         @params = params
         @result = Hash.new
-        @response = request_url
+        @response = Nokogiri::HTML(response)
       end
 
       def run
@@ -19,12 +18,6 @@ module Crawler
       end
 
       private
-
-      # Sẽ xử lý HTML và JSON
-      def request_url
-        res = Net::HTTP.get_response(link)
-        Nokogiri::HTML(res.body)
-      end
 
       def analysis_content
         # 1. Nếu key chứa /array/ thì return array, còn lại return string

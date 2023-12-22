@@ -1,2 +1,2 @@
 require_relative "base"
-require_relative "carlwer_auto_next_chapter"
+require_relative "crawl_content"

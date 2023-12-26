@@ -5,11 +5,13 @@ module Crawler
     module Base
       attr_accessor :driver, :wait
 
-      def create_driver headless = false, *args
+      def create_driver headless = true, *args
         options = Selenium::WebDriver::Chrome::Options.new
 
         if headless
           options.add_argument('--headless')
+          options.add_argument('--disable-dev-shm-usage')
+          options.add_argument('--no-sandbox')
         end
 
         driver = Selenium::WebDriver.for :chrome, options: options

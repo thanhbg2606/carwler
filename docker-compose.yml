@@ -1,6 +1,14 @@
 version: '3'
 
 services:
+  app:
+    stdin_open: true
+    tty: true
+    build: .
+    volumes:
+      - ".:/rails"
+    ports:
+      - 5000:5000
   db:
     image: postgres:13.4
     ports:

@@ -18,7 +18,7 @@ module CrawlContent
       end
     end
 
-    def crawl_nokogiri
+    def crawl_nokogiri response
       case response.content_type
       when "application/json"
         response.body

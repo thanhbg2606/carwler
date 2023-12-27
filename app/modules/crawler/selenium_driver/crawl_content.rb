@@ -16,6 +16,8 @@ module Crawler
 
       def run
         driver.navigate.to link
+        # complete load page
+        wait.until { is_loaded? }
         analysis_content
       end
 
@@ -27,9 +29,9 @@ module Crawler
           action = arr_value[1]
 
           if key.include?("array")
-            result[key] = wait.until { css(location, action) }
+            result[key] = css(location, action)
           else
-            result[key] = wait.until { at_css(location, action) }
+            result[key] = at_css(location, action)
           end
         end
         result

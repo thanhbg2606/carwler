@@ -23,13 +23,18 @@ module Crawler
 
       def css location, action
         driver.find_elements(:css, location).map{ |item| get_value(item, action) }
+      rescue Selenium::WebDriver::Error::NoSuchElementError => e
+        Rails.logger.warn(e.message)
+        Rails.logger.warn(driver.find_element("xpath", "//*").attribute("outerHTML"))
+        nil
       end
 
       def at_css location, action
         element = driver.find_element(:css, location)
         get_value(element, action)
       rescue Selenium::WebDriver::Error::NoSuchElementError => e
-        Rails.logger.info(e.message)
+        Rails.logger.warn(e.message)
+        Rails.logger.warn(driver.find_element("xpath", "//*").attribute("outerHTML"))
         nil
       end
 
@@ -53,7 +58,7 @@ module Crawler
         end
 
         element.attribute(action)
-      rescue Selenium::WebDriver::Error::NoSuchElementError => e
+      rescue StandardError => e
         Rails.logger.error(e)
         nil
       end

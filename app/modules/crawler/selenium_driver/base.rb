@@ -28,6 +28,17 @@ module Crawler
       def at_css location, action
         element = driver.find_element(:css, location)
         get_value(element, action)
+      rescue Selenium::WebDriver::Error::NoSuchElementError => e
+        Rails.logger.info(e.message)
+        nil
+      end
+
+      def is_loaded?
+        is_loaded = nil
+        if driver.execute_script("return document.readyState") == "complete"
+          is_loaded =  true
+        end
+        is_loaded
       end
 
       def close_driver
@@ -36,14 +47,13 @@ module Crawler
 
       private
 
-      # Cần ghi log để check action nào đang không get được
       def get_value element, action
         if action.empty?
           action = "text"
         end
 
         element.attribute(action)
-      rescue StandardError => e
+      rescue Selenium::WebDriver::Error::NoSuchElementError => e
         Rails.logger.error(e)
         nil
       end

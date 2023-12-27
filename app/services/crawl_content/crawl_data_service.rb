@@ -9,13 +9,14 @@ module CrawlContent
     end
 
     def call
-      response = Request.new(link).get
-
-      if response.nil?
-        crawl_selenium
-      else
-        crawl_nokogiri response
-      end
+      crawl_selenium
+      # response = Request.new(link).get
+      # crawl_nokogiri không get được data ajax
+      # if response.nil?
+      #   crawl_selenium
+      # else
+      #   crawl_nokogiri response
+      # end
     end
 
     def crawl_nokogiri response

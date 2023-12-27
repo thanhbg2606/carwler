@@ -33,6 +33,8 @@ module Crawler
           end
         end
         result
+      rescue Selenium::WebDriver::Error::TimeoutError => e
+        Rails.logger.error(e.message)
       ensure
         close_driver
       end
